@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: ibmuiweb
+    tier: frontend
+  name: api-config
+  namespace: squad9
+data:
+  default.json: |
+    {
+      "environment": {
+        "cdt-maint": {
+          "epricer": {
+            "host": "9.209.245.83",
+            "protocol": "https",
+            "port": "443",
+            "root": "/services/epricer/v2/epnext",
+            "checkServerIdentity": false,
+            "authorization": "oauth"
+          }
+        },
+        "prod": {
+
+        }
+      },
+      "epricer": {
+        "urlrewrite": {
+          "/api/upload": "/uploadbinary",
+          "/api/reference": "/api/rest"
+        }
+      },
+      "services": {
+        "typeAhead": {
+          "host": "w3-services1.w3-969.ibm.com",
+          "path": "/myw3/unified-profile/v1/search/user",
+          "checkServerIdentity": true
+        }
+      }
+    }
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: ibmuiweb
+    tier: frontend
+  name: ui-config
+  namespace: squad9
+data:
+  ui-config.json: |
+    {
+      "headerHexColor": "#161616",
+      "disableOverview": false,
+      "disableConfiguration": false,
+      "disablePricing": false,
+      "disableApproval": false,
+      "disableCloseOut": false
+    }
+
+---

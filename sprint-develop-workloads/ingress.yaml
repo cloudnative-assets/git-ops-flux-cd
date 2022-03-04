@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.bluemix.net/ALB-ID: private-cr2de5f403eeb64afaa9f87dcddec35332-alb1;private-cr2de5f403eeb64afaa9f87dcddec35332-alb2
+    ingress.bluemix.net/redirect-to-https: "True"
+    ingress.bluemix.net/ssl-services: ssl-service=ibmuiweb
+    ingress.bluemix.net/client-max-body-size: "size=100m"
+  labels:
+    environment: sprintdev 
+  name: epricer-ingress
+  namespace: sprint-develop
+spec:
+  rules:
+  - host: w3-sprintdev.epricer.nonprod.intranet.ibm.com
+    http:
+      paths:
+      - backend:
+          serviceName: ibmuiweb
+          servicePort: 8000
+        path: /
+  tls:
+  - hosts:
+    - w3-sprintdev.epricer.nonprod.intranet.ibm.com
+    secretName: nonprodtls
